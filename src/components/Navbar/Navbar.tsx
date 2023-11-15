@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const Navbar = () => {
   const languages = {
@@ -8,15 +9,25 @@ const Navbar = () => {
     hi: "हिंदी",
   };
 
+  const navigate = useNavigate();
   const { i18n } = useTranslation();
-
+  const { language } = useParams(); 
+ console.log(language)
+  useEffect(()=>{
+    const lan:string=language?.toLowerCase() ==="hindi" ? 'hi' : language?.toLowerCase() ==="telugu" ? 'te' : language?.toLowerCase() ==="english" ? 'en' : navigate("/404")
+    changeLanguage(lan)
+  }, [])
   const changeLanguage = (lng: string) => {
+    console.log("lang", lng)
     i18n.changeLanguage(lng);
   };
-
-  const handleOnChange = (e: any) => {
-    console.log(e.target.value);
-    changeLanguage(e.target.value);
+ 
+  const handleOnChange = (value:string ) => {  
+    changeLanguage(value);
+    const optionLanguage:string=languages[value]==="తెలుగు"? "Telugu" :languages[value]==="हिंदी" ? "Hindi":"English";
+    console.log(value, "hi");
+    
+    navigate(`/${optionLanguage}/Home`);
   };
 
   return (
@@ -38,7 +49,7 @@ const Navbar = () => {
               className="w-[150px]"
               name="languages"
               id="languages"
-              onChange={handleOnChange}
+              onChange={(e)=>handleOnChange(e.target.value)}
             >
               {Object.entries(languages).map(([key, value]) => (
                 <option id={key} value={key}>

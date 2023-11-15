@@ -25,9 +25,9 @@ function App() {
       <Route path="/" element={<RedirectComponent/>}/>
       <Route path="/home" element={<RedirectComponent/>}/>
       <Route path="/ContentPage/:index" element={<ContentPage/>}/>
-      <Route path="/english/home" element={<Home/>}/>
-      <Route path="/telugu/home" element={<Home/>}/>
-      <Route path="/Hindi/home" element={<Home/>}/>
+      <Route path="/:language/home" element={<Home/>}/>
+      {/* <Route path="/telugu/home" element={<Home/>}/>
+      <Route path="/Hindi/home" element={<Home/>}/> */}
       <Route path="/loginForm" element={<LoginForm/>}/>
       <Route path="/*" element={<NotFoundPage/>}/>
       <Route path="/404" element={<NotFoundPage/>}/>
